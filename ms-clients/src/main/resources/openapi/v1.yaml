@@ -1,0 +1,591 @@
+---
+openapi: 3.0.0
+info:
+  title: Backend-BP-Devsu
+  description: Services API Ms-Clients
+  version: "1.0"
+servers:
+  - url: http://localhost:5051/api/v1
+tags:
+  - name: ms-clients
+    description: Services API Ms-Clients
+
+paths:
+  /clientes:
+    get:
+      tags:
+        - clients
+      summary: Returns clientes
+      description: Returns clientes
+      operationId: listClients
+      responses:
+        '200':
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+    post:
+      tags:
+        - clients
+      summary: Create a new client
+      description: Create a new client
+      operationId: createClient
+      requestBody:
+        description: Client to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '201':
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+
+
+  /clientes/{clienteId}:
+    put:
+      tags:
+        - clients
+      summary: Update a client
+      description: Update a client
+      operationId: putClient
+      parameters:
+        - name: clienteId
+          in: path
+          description: Client id
+          required: true
+          schema:
+           type: integer
+      requestBody:
+        description: Client to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+      responses:
+        '200':
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+    patch:
+      tags:
+        - clients
+      summary: Update a client
+      description: Update a client
+      operationId: patchClient
+      parameters:
+        - name: clienteId
+          in: path
+          description: Client id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Client to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStatusRequest'
+      responses:
+        '200':
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conflict'
+    get:
+        tags:
+            - clients
+        summary: Returns a client
+        description: Returns a client
+        operationId: getClient
+        parameters:
+          - name: clienteId
+            in: path
+            description: Client id
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Operation successful
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Client'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/BadRequest'
+          '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Conflict'
+    delete:
+        tags:
+            - clients
+        summary: Delete a client
+        description: Delete a client
+        operationId: deleteClient
+        parameters:
+          - name: clienteId
+            in: path
+            description: Client id
+            required: true
+            schema:
+                type: integer
+        responses:
+          '200':
+            description: Operation successful
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/SuccessResponse'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/BadRequest'
+          '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Conflict'
+
+  /cuentas:
+    get:
+        tags:
+            - accounts
+        summary: Returns cuentas
+        description: Returns cuentas
+        operationId: listAccounts
+        responses:
+          '200':
+            description: Operation successful
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/AccountsResponse'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/BadRequest'
+          '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Conflict'
+    post:
+        tags:
+            - accounts
+        summary: Create a new account
+        description: Create a new account
+        operationId: createAccount
+        requestBody:
+          description: Account to create
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountRequest'
+        responses:
+          '201':
+            description: Operation successful
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/SuccessResponse'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/BadRequest'
+          '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Conflict'
+
+  /cuentas/{cuentaId}:
+    patch:
+          tags:
+              - accounts
+          summary: Update a account
+          description: Update a account
+          operationId: patchAccount
+          parameters:
+            - name: cuentaId
+              in: path
+              description: Account id
+              required: true
+              schema:
+                  type: integer
+          requestBody:
+            description: Client to update
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/UpdateStatusAccountRequest'
+          responses:
+            '200':
+              description: Operation successful
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SuccessResponse'
+            '400':
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/BadRequest'
+            '409':
+              description: Conflict
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Conflict'
+
+  /movimientos:
+    post:
+        tags:
+            - movements
+        summary: Create a new movement
+        description: Create a new movement
+        operationId: createMovement
+        requestBody:
+          description: Movement to create
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementRequest'
+        responses:
+          '201':
+            description: Operation successful
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/SuccessResponse'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/BadRequest'
+          '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Conflict'
+
+  /reportes:
+    get:
+        tags:
+            - reports
+        summary: Returns reportes
+        description: Returns reportes
+        operationId: estadoCuenta
+        parameters:
+          - name: fechaInicio
+            in: query
+            description: Fecha inicio
+            required: true
+            schema:
+              type: string
+            example: "2021-01-01"
+          - name: fechaFin
+            in: query
+            description: Fecha fin
+            required: true
+            schema:
+              type: string
+            example: "2021-01-01"
+          - name: clienteId
+            in: query
+            description: Cliente id
+            required: true
+            schema:
+              type: integer
+            example: 1
+        responses:
+          '200':
+            description: Operation successful
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/EstadoCuentaResponse'
+          '400':
+            description: Bad request
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/BadRequest'
+          '409':
+            description: Conflict
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/Conflict'
+
+
+components:
+  schemas:
+    BadRequest:
+      description: Malformed request
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Conflict
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+
+    #Request
+    AccountRequest:
+      type: object
+      properties:
+        clienteId:
+          type: integer
+          example: 1
+        numeroCuenta:
+          type: string
+          example: "123456"
+        tipoCuenta:
+          type: string
+          example: 'ABC'
+        saldoInicial:
+          type: number
+          example: "100.00"
+    MovementRequest:
+        type: object
+        properties:
+          cuentaId:
+            type: integer
+            example: 1
+          fecha:
+            type: string
+            example: "2021-01-01"
+          valor:
+            type: number
+            example: "100.00"
+    UpdateStatusRequest:
+      type: object
+      properties:
+        estado:
+          type: boolean
+          example: true
+    UpdateStatusAccountRequest:
+      type: object
+      properties:
+        estado:
+          type: boolean
+          example: true
+
+    #Response
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Error message"
+        code:
+          type: string
+          example: "Error"
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Success message"
+        code:
+          type: string
+          example: "Success"
+    ClientsResponse:
+      type: object
+      properties:
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Client'
+    AccountsResponse:
+        type: object
+        properties:
+          accounts:
+            type: array
+            items:
+                $ref: '#/components/schemas/Account'
+    EstadoCuentaResponse:
+        type: object
+        properties:
+          cliente:
+            type: string
+            example: "Guillermo"
+          cuentas:
+            type: array
+            items:
+                $ref: '#/components/schemas/CuentaResponse'
+    CuentaResponse:
+        type: object
+        properties:
+          numeroCuenta:
+            type: string
+            example: "123456"
+          tipoCuenta:
+            type: string
+            example: 'ABC'
+          saldoInicial:
+            type: number
+            example: "100.00"
+          saldoActual:
+            type: number
+            example: "100.00"
+          estado:
+            type: boolean
+            example: true
+          movimientos:
+            type: array
+            items:
+                $ref: '#/components/schemas/MovementResponse'
+    MovementResponse:
+        type: object
+        properties:
+          fecha:
+            type: string
+            example: "2021-01-01"
+          tipoMovimiento:
+            type: string
+            example: "RETIRO"
+          valor:
+            type: number
+            example: "500.00"
+          descripcion:
+            type: string
+            example: "Retiro de 500"
+
+    #Models
+    Client:
+      type: object
+      properties:
+        clienteId:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: "Juan"
+        genero:
+          type: string
+          example: "Perez"
+        edad:
+          type: integer
+          example: 30
+        identificacion:
+          type: string
+          example: "123456789"
+        direccion:
+          type: string
+          example: "Calle 123"
+        telefono:
+          type: string
+          example: "123456789"
+        contrasena:
+          type: string
+          example: "123456"
+        estado:
+          type: boolean
+          example: true
+        personaId:
+          type: integer
+          example: 1
+
+    Account:
+      type: object
+      properties:
+        cuentaId:
+          type: integer
+          example: 1
+        clienteId:
+          type: integer
+          example: 1
+        tipoCuenta:
+          type: string
+          example: 'ABC'
+        saldoInicial:
+          type: integer
+          example: 1000000
+        saldoActual:
+            type: integer
+            example: 1000000
+        estado:
+          type: boolean
+          example: true
+
