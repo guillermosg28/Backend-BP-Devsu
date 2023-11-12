@@ -1,15 +1,53 @@
 version: '3'
 services:
-  broker:
+  devsu-kafka:
     image: johnnypark/kafka-zookeeper:2.6.0
-    container_name: service-broker
+    container_name: devsu-kafka
     restart: always
     ports:
       - "2181:2181"
       - "9092:9092"
     environment:
-    - ADVERTISED_HOST=127.0.0.1
     - NUM_PARTITIONS=3
+    networks:
+    - devsu-network
+
+  desvu-mysql:
+    image: mysql:5.7
+    container_name: desvu-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: devsu
+      MYSQL_DATABASE: bank
+      MYSQL_PASSWORD: root
+    ports:
+      - 3306:3306
+    networks:
+    - devsu-network
+
+  devsu-ms-client:
+    build:
+      context: ./ms-clients
+      dockerfile: Dockerfile.msclient
+    restart: always
+    ports:
+      - "5051:5051"
+    container_name: devsu-ms-client
+    depends_on:
+      - desvu-mysql
+    networks:
+    - devsu-network
+
+  devsu-ms-movement:
+    build:
+      context: ./ms-movements
+      dockerfile: Dockerfile.msmovements
+    restart: always
+    ports:
+      - "5052:5052"
+    container_name: devsu-ms-movement
+    depends_on:
+      - desvu-mysql
     networks:
     - devsu-network
 
